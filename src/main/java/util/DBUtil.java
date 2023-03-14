@@ -4,9 +4,6 @@ import java.sql.*;
 import java.time.Instant;
 
 public class DBUtil {
-
-    private PreparedStatement preparedStatement = null;
-
     //region Select Statements
     private static final String GET_ALL_PHARMACIES = "SELECT * FROM PHARMACY";
     private static final String GET_ROOM_QUERY = "SELECT * FROM ROOM WHERE \"room_id\"= ?";
@@ -30,8 +27,6 @@ public class DBUtil {
     private static final String GET_ORDER_QUERY = "SELECT * FROM ORDERS WHERE \"order_id\"= ?";
     private static final String GET_ORDERS_IN = "SELECT * FROM ORDER_IN";
     private static final String GET_ORDERS_OUT = "SELECT * FROM ORDER_OUT";
-
-
     //endregion
 
     //region Insert Statements
@@ -52,32 +47,65 @@ public class DBUtil {
     private static final String CREATE_ORDER_OUT = "INSERT INTO ORDER_OUT VALUES(?,?,?)";
     private static final String CREATE_ORDER_PRODUCT = "INSERT INTO ORDER_PRODUCT VALUES(?,?,?,?)";
     private static final String CREATE_BATCH = "INSERT INTO BATCHES VALUES(?,?,?)";
-
     //endregion
 
     //region Delete Statements
-    private static final String DELETE_PRODUCT = "DELETE FROM PRODUCT WHERE 'product_id' = ?";
-    private static final String DELETE_MEDICINE = "DELETE FROM MEDIC WHERE 'product' = ?";
-    private static final String DELETE_SUPPLEMENT = "DELETE FROM SUPPLEMENT WHERE 'product' = ?";
+    private static final String DELETE_PRODUCT = "DELETE FROM PRODUCT WHERE \"product_id\" = ?";
+    private static final String DELETE_MEDICINE = "DELETE FROM MEDIC WHERE \"product\" = ?";
+    private static final String DELETE_SUPPLEMENT = "DELETE FROM SUPPLEMENT WHERE \"product\" = ?";
 
-    private static final String DELETE_PHARMACY = "DELETE FROM PHARMACY WHERE 'ph_id' = ?";
-    private static final String DELETE_DISTRIBUTOR = "DELETE FROM DISTRIBUTOR WHERE 'dis_id' = ?";
+    private static final String DELETE_PHARMACY = "DELETE FROM PHARMACY WHERE \"ph_id\" = ?";
+    private static final String DELETE_DISTRIBUTOR = "DELETE FROM DISTRIBUTOR WHERE \"dis_id\" = ?";
     private static final String DELETE_ROOM = "DELETE FROM ROOM WHERE \"room_id\" = ?";
 
-    private static final String DELETE_E_NUM = "DELETE FROM E_NUM WHERE 'e_num_id' = ?";
-    private static final String DELETE_ACTIVE_INGR = "DELETE FROM ACTIVE_INGR WHERE 'ingr_id' = ?";
-    private static final String DELETE_ACT_INGR_PRODUCT = "DELETE FROM ACT_INGR_PRODUCT WHERE 'act_ingrs_ingr_id' = ?";
+    private static final String DELETE_E_NUM = "DELETE FROM E_NUM WHERE \"e_num_id\" = ?";
+    private static final String DELETE_ACTIVE_INGR = "DELETE FROM ACTIVE_INGR WHERE \"ingr_id\" = ?";
+    private static final String DELETE_ACT_INGR_PRODUCT = "DELETE FROM ACT_INGR_PRODUCT WHERE \"act_ingrs_ingr_id\" = ?";
 
-    private static final String DELETE_ORDER = "DELETE FROM ORDERS WHERE 'order_id' = ?";
-    private static final String DELETE_ORDER_IN = "DELETE FROM ORDER_IN WHERE 'order' = ?";
-    private static final String DELETE_ORDER_OUT = "DELETE FROM ORDER_OUT WHERE 'order' = ?";
-    private static final String DELETE_ORDER_PRODUCT = "DELETE FROM ORDER_PRODUCT WHERE 'order' = ?";
-    private static final String DELETE_BATCH = "DELETE FROM BATCHES WHERE 'batch_id' = ?";
+    private static final String DELETE_ORDER = "DELETE FROM ORDERS WHERE \"order_id\" = ?";
+    private static final String DELETE_ORDER_IN = "DELETE FROM ORDER_IN WHERE \"order\" = ?";
+    private static final String DELETE_ORDER_OUT = "DELETE FROM ORDER_OUT WHERE \"order\" = ?";
+    private static final String DELETE_ORDER_PRODUCT = "DELETE FROM ORDER_PRODUCT WHERE \"order\" = ?";
+    private static final String DELETE_BATCH = "DELETE FROM BATCHES WHERE \"batch_id\" = ?";
 
     //endregion
 
     private Connection cachedConnection = null;
     private static final DBUtil instance = new DBUtil();
+
+    //region PreparedStatements
+    private final PreparedStatement preparedStatementGetAllPharmacies = null;
+    private final PreparedStatement preparedStatementGetPharmacyById = null;
+    private final PreparedStatement preparedStatementGetDeletePharmacyById = null;
+    private final PreparedStatement preparedStatementAddPharmacy = null;
+    private final PreparedStatement preparedStatementAddBatch = null;
+    private final PreparedStatement prepareStatementGetOrderProductInfo = null;
+    private final PreparedStatement prepareStatementGetAllOrdersOut = null;
+    private final PreparedStatement prepareStatementGetAllRooms = null;
+    private final PreparedStatement prepareStatementFetProductById = null;
+    private final PreparedStatement prepareStatementAddRoom = null;
+    private final PreparedStatement prepareStatementAddOrderIn = null;
+    private final PreparedStatement prepareStatementAddOrder = null;
+    private final PreparedStatement prepareStatementAddOrderOut = null;
+    private final PreparedStatement prepareStatementDeleteRoom = null;
+    private final PreparedStatement prepareStatementGetAllPharmacies = null;
+    private final PreparedStatement prepareStatementGetAllPeoducts = null;
+    private final PreparedStatement prepareStatementGetAllProductsWithSpecialisation = null;
+    private final PreparedStatement prepareStatementGetAllOrders = null;
+    private final PreparedStatement prepareStatementGetAllDistributors = null;
+    private final PreparedStatement prepareStatementGetAllActIngr = null;
+    private final PreparedStatement prepareStatementGetAllENums = null;
+    private final PreparedStatement prepareStatementGetRoomById = null;
+    private final PreparedStatement prepareStatementAddProduct = null;
+    private final PreparedStatement prepareStatementAddMedicine = null;
+    private final PreparedStatement prepareStatementAddSupplement = null;
+    private final PreparedStatement prepareStatementDeleteBatch = null;
+    private final PreparedStatement prepareStatementGetAllBatches = null;
+    private final PreparedStatement prepareStatementGetBatchById = null;
+    private final PreparedStatement prepareStatementGetOrderById = null;
+    private final PreparedStatement prepareStatementGetAllOrdersIn = null;
+    //endregion
+
 
     private DBUtil() {
     }
@@ -102,7 +130,7 @@ public class DBUtil {
         return this.cachedConnection;
     }
 
-    private PreparedStatement executeStatement(String statement) {
+    private PreparedStatement getStatement(String statement, PreparedStatement preparedStatement) {
         if (preparedStatement == null) {
             try {
                 preparedStatement = getConnection().prepareStatement(statement);
@@ -116,25 +144,25 @@ public class DBUtil {
     public ResultSet getProductById(int id) {
         ResultSet result = null;
         try {
-            PreparedStatement stmt = executeStatement(GET_PRODUCT_QUERY);
+            PreparedStatement stmt = getStatement(GET_PRODUCT_QUERY, prepareStatementFetProductById);
             stmt.setInt(1, id);
             result = stmt.executeQuery();
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        preparedStatement = null;
+
         return result;
     }
 
     public ResultSet getAllRooms() {
         ResultSet result = null;
         try {
-            PreparedStatement stmt = executeStatement(GET_ALL_ROOMS);
+
+            PreparedStatement stmt = getStatement(GET_ALL_ROOMS, prepareStatementGetAllRooms);
             result = stmt.executeQuery();
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        preparedStatement = null;
 
         return result;
     }
@@ -142,19 +170,18 @@ public class DBUtil {
     public void createRoom(int roomId) {
         ResultSet result = null;
         try {
-            PreparedStatement stmt = executeStatement(CREATE_ROOM);
+            PreparedStatement stmt = getStatement(CREATE_ROOM, prepareStatementAddRoom);
             stmt.setInt(1, roomId);
             int row = stmt.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        preparedStatement = null;
     }
 
     public void createOrderIn(int orderId, int distributor) {
         ResultSet result = null;
         try {
-            PreparedStatement stmt2 = executeStatement(CREATE_ORDER_IN);
+            PreparedStatement stmt2 = getStatement(CREATE_ORDER_IN, prepareStatementAddOrderIn);
             stmt2.setTimestamp(1, Timestamp.from(Instant.now()));
             stmt2.setInt(2, orderId);
             stmt2.setInt(3, distributor);
@@ -164,7 +191,6 @@ public class DBUtil {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        preparedStatement = null;
     }
 
     public void createOrderInStart(int orderId, int distributor) {
@@ -175,21 +201,19 @@ public class DBUtil {
     public void createOrder(int orderId, int distributor) {
         ResultSet result = null;
         try {
-            PreparedStatement stmt = executeStatement(CREATE_ORDER);
+            PreparedStatement stmt = getStatement(CREATE_ORDER, prepareStatementAddOrder);
             stmt.setInt(1, orderId);
             int row = stmt.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
         }
-
-        preparedStatement = null;
     }
 
 
     public void createOrderOut(int orderId, int pharmacy) {
         ResultSet result = null;
         try {
-            PreparedStatement stmt2 = executeStatement(CREATE_ORDER_OUT);
+            PreparedStatement stmt2 = getStatement(CREATE_ORDER_OUT, prepareStatementAddOrderOut);
             stmt2.setTimestamp(1, Timestamp.from(Instant.now()));
             stmt2.setInt(2, orderId);
             stmt2.setInt(3, pharmacy);
@@ -197,41 +221,37 @@ public class DBUtil {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        preparedStatement = null;
     }
 
     public void deleteRoom(int roomId) {
         try {
-            PreparedStatement stmt = executeStatement(DELETE_ROOM);
+            PreparedStatement stmt = getStatement(DELETE_ROOM, prepareStatementDeleteRoom);
             stmt.setInt(1, roomId);
             int row = stmt.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        preparedStatement = null;
     }
 
     public void deletePharmacy(int pharmacyId) {
         try {
-            PreparedStatement stmt = executeStatement(DELETE_PHARMACY);
+            PreparedStatement stmt = getStatement(DELETE_PHARMACY, preparedStatementGetDeletePharmacyById);
             stmt.setInt(1, pharmacyId);
             int row = stmt.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        preparedStatement = null;
     }
 
     public ResultSet getOrderProductInfo(int orderId) {
         ResultSet result = null;
         try {
-            PreparedStatement stmt = executeStatement(SELECT_ORDER_PRODUCT_INFO_2);
+            PreparedStatement stmt = getStatement(SELECT_ORDER_PRODUCT_INFO_2, prepareStatementGetOrderProductInfo);
             stmt.setInt(1, orderId);
             result = stmt.executeQuery();
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        preparedStatement = null;
 
         return result;
     }
@@ -239,12 +259,11 @@ public class DBUtil {
     public ResultSet getAllPharmacies() {
         ResultSet result = null;
         try {
-            PreparedStatement stmt = executeStatement(GET_ALL_PHARMACIES);
+            PreparedStatement stmt = getStatement(GET_ALL_PHARMACIES, prepareStatementGetAllPharmacies);
             result = stmt.executeQuery();
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        preparedStatement = null;
 
         return result;
     }
@@ -252,12 +271,11 @@ public class DBUtil {
     public ResultSet getAllProducts() {
         ResultSet result = null;
         try {
-            PreparedStatement stmt = executeStatement(GET_ALL_PRODUCTS);
+            PreparedStatement stmt = getStatement(GET_ALL_PRODUCTS, prepareStatementGetAllPeoducts);
             result = stmt.executeQuery();
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        preparedStatement = null;
 
         return result;
     }
@@ -265,12 +283,11 @@ public class DBUtil {
     public ResultSet getAllProductsWithSpecialisation() {
         ResultSet result = null;
         try {
-            PreparedStatement stmt = executeStatement(GET_PRODUCT_WITH_SPECIALIZATION_ATTRIBUTES_QUERY);
+            PreparedStatement stmt = getStatement(GET_PRODUCT_WITH_SPECIALIZATION_ATTRIBUTES_QUERY, prepareStatementGetAllProductsWithSpecialisation);
             result = stmt.executeQuery();
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        preparedStatement = null;
 
         return result;
     }
@@ -278,12 +295,11 @@ public class DBUtil {
     public ResultSet getAllOrders() {
         ResultSet result = null;
         try {
-            PreparedStatement stmt = executeStatement(GET_ALL_ORDERS);
+            PreparedStatement stmt = getStatement(GET_ALL_ORDERS, prepareStatementGetAllOrders);
             result = stmt.executeQuery();
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        preparedStatement = null;
 
         return result;
     }
@@ -291,12 +307,11 @@ public class DBUtil {
     public ResultSet getAllDistributors() {
         ResultSet result = null;
         try {
-            PreparedStatement stmt = executeStatement(GET_ALL_DISTRIBUTORS);
+            PreparedStatement stmt = getStatement(GET_ALL_DISTRIBUTORS, prepareStatementGetAllDistributors);
             result = stmt.executeQuery();
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        preparedStatement = null;
 
         return result;
     }
@@ -304,12 +319,11 @@ public class DBUtil {
     public ResultSet getAllActiveIngredients() {
         ResultSet result = null;
         try {
-            PreparedStatement stmt = executeStatement(GET_ALL_ACTIVE_INGR);
+            PreparedStatement stmt = getStatement(GET_ALL_ACTIVE_INGR, prepareStatementGetAllActIngr);
             result = stmt.executeQuery();
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        preparedStatement = null;
 
         return result;
     }
@@ -317,12 +331,11 @@ public class DBUtil {
     public ResultSet getAllENums() {
         ResultSet result = null;
         try {
-            PreparedStatement stmt = executeStatement(GET_ALL_E_NUMS);
+            PreparedStatement stmt = getStatement(GET_ALL_E_NUMS, prepareStatementGetAllENums);
             result = stmt.executeQuery();
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        preparedStatement = null;
 
         return result;
     }
@@ -330,20 +343,19 @@ public class DBUtil {
     public ResultSet getRoomById(int inputNum) {
         ResultSet result = null;
         try {
-            PreparedStatement stmt = executeStatement(GET_ROOM_QUERY);
+            PreparedStatement stmt = getStatement(GET_ROOM_QUERY, prepareStatementGetRoomById);
             stmt.setInt(1, inputNum);
             result = stmt.executeQuery();
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        preparedStatement = null;
 
         return result;
     }
 
     public void createProduct(int productId, int quantity, String name_bg, String name_eng, int room, int batch, int actIngr) {
         try {
-            PreparedStatement stmt = executeStatement(CREATE_PRODUCT);
+            PreparedStatement stmt = getStatement(CREATE_PRODUCT, prepareStatementAddProduct);
             stmt.setInt(1, productId);
             stmt.setInt(2, quantity);
             stmt.setString(3, name_bg);
@@ -355,12 +367,11 @@ public class DBUtil {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        preparedStatement = null;
     }
 
     public void createMedicine(int productId, int has_prescription, int group) {
         try {
-            PreparedStatement stmt = executeStatement(CREATE_MEDICINE);
+            PreparedStatement stmt = getStatement(CREATE_MEDICINE, prepareStatementAddMedicine);
             stmt.setInt(1, has_prescription);
             stmt.setInt(2, group);
             stmt.setInt(3, productId);
@@ -369,7 +380,6 @@ public class DBUtil {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        preparedStatement = null;
     }
 
     public void createMedicineStart(int productId, int quantity, String name_bg, String name_eng, int room, int batch, int actIngr, int has_prescription, int group) {
@@ -379,7 +389,7 @@ public class DBUtil {
 
     public void createSupplement(int productId, int quantity, int eNum) {
         try {
-            PreparedStatement stmt = executeStatement(CREATE_SUPPLEMENT);
+            PreparedStatement stmt = getStatement(CREATE_SUPPLEMENT, prepareStatementAddSupplement);
             stmt.setInt(1, quantity);
             stmt.setInt(2, eNum);
             stmt.setInt(3, productId);
@@ -388,13 +398,12 @@ public class DBUtil {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        preparedStatement = null;
     }
 
     public void createPharmacy(int inputNum, String address) {
         ResultSet result = null;
         try {
-            PreparedStatement stmt = executeStatement(CREATE_PHARMACY);
+            PreparedStatement stmt = getStatement(CREATE_PHARMACY, preparedStatementAddPharmacy);
             stmt.setInt(1, inputNum);
             stmt.setString(2, address);
 
@@ -402,19 +411,17 @@ public class DBUtil {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        preparedStatement = null;
     }
 
     public ResultSet getPharmacyById(int inputNum) {
         ResultSet result = null;
         try {
-            PreparedStatement stmt = executeStatement(GET_PHARMACY_QUERY);
+            PreparedStatement stmt = getStatement(GET_PHARMACY_QUERY, preparedStatementGetPharmacyById);
             stmt.setInt(1, inputNum);
             result = stmt.executeQuery();
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        preparedStatement = null;
 
         return result;
     }
@@ -422,7 +429,7 @@ public class DBUtil {
     public void createBatch(int inputNum, Double price, Timestamp shelfLife) {
         ResultSet result = null;
         try {
-            PreparedStatement stmt = executeStatement(CREATE_BATCH);
+            PreparedStatement stmt = getStatement(CREATE_BATCH, preparedStatementAddBatch);
             stmt.setInt(1, inputNum);
             stmt.setDouble(2, price);
             stmt.setTimestamp(3, shelfLife);
@@ -431,29 +438,26 @@ public class DBUtil {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        preparedStatement = null;
     }
 
     public void deleteBatch(int inputNum) {
         try {
-            PreparedStatement stmt = executeStatement(DELETE_BATCH);
+            PreparedStatement stmt = getStatement(DELETE_BATCH, prepareStatementDeleteBatch);
             stmt.setInt(1, inputNum);
             int row = stmt.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        preparedStatement = null;
     }
 
     public ResultSet getAllBatches() {
         ResultSet result = null;
         try {
-            PreparedStatement stmt = executeStatement(GET_ALL_BATCHES);
+            PreparedStatement stmt = getStatement(GET_ALL_BATCHES, prepareStatementGetAllBatches);
             result = stmt.executeQuery();
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        preparedStatement = null;
 
         return result;
     }
@@ -461,13 +465,12 @@ public class DBUtil {
     public ResultSet getBatchById(int inputNum) {
         ResultSet result = null;
         try {
-            PreparedStatement stmt = executeStatement(GET_BATCH_QUERY);
+            PreparedStatement stmt = getStatement(GET_BATCH_QUERY, prepareStatementGetBatchById);
             stmt.setInt(1, inputNum);
             result = stmt.executeQuery();
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        preparedStatement = null;
 
         return result;
     }
@@ -475,13 +478,12 @@ public class DBUtil {
     public ResultSet getOrderById(int inputNum) {
         ResultSet result = null;
         try {
-            PreparedStatement stmt = executeStatement(GET_ORDER_QUERY);
+            PreparedStatement stmt = getStatement(GET_ORDER_QUERY, prepareStatementGetOrderById);
             stmt.setInt(1, inputNum);
             result = stmt.executeQuery();
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        preparedStatement = null;
 
         return result;
     }
@@ -494,12 +496,11 @@ public class DBUtil {
     public ResultSet getAllOrdersIn() {
         ResultSet result = null;
         try {
-            PreparedStatement stmt = executeStatement(GET_ORDERS_IN);
+            PreparedStatement stmt = getStatement(GET_ORDERS_IN, prepareStatementGetAllOrdersIn);
             result = stmt.executeQuery();
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        preparedStatement = null;
 
         return result;
     }
@@ -507,12 +508,11 @@ public class DBUtil {
     public ResultSet getAllOrdersOut() {
         ResultSet result = null;
         try {
-            PreparedStatement stmt = executeStatement(GET_ORDERS_OUT);
+            PreparedStatement stmt = getStatement(GET_ORDERS_OUT, prepareStatementGetAllOrdersOut);
             result = stmt.executeQuery();
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        preparedStatement = null;
 
         return result;
     }
