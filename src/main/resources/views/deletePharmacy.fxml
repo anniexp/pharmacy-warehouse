@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.PharmacyController">
+    <children>
+        <Pane layoutX="62.0" prefHeight="200.0" prefWidth="200.0" />
+        <TextField  fx:id="pharmacyId" layoutX="188.0" layoutY="187.0" promptText="Enter pharmacy Id" />
+        <Button fx:id="deleteRoom" onAction="#deletePharmacy" layoutX="226.0" layoutY="225.0" mnemonicParsing="false" text="Delete Pharmacy" />
+    </children>
+</AnchorPane>

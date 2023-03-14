@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.ProductController">
+    <children>
+        <TextField fx:id="productId" layoutX="106.0" layoutY="64.0" promptText="Enter product Id" />
+        <TextField fx:id="nameEng" layoutX="106.0" layoutY="103.0" promptText="Enter name in english" />
+        <TextField fx:id="nameBg" layoutX="106.0" layoutY="145.0" promptText="Enter name in bulgarian" />
+        <TextField fx:id="quantity" layoutX="289.0" layoutY="145.0" promptText="Enter quantity" />
+        <TextField fx:id="room" layoutX="289.0" layoutY="103.0" promptText="Enter room id" />
+        <TextField fx:id="batch" layoutX="106.0" layoutY="187.0" promptText="Enter batch id" />
+        <TextField fx:id="act_ingr" layoutX="106.0" layoutY="223.0" promptText="Enter act_ingr id" />
+        <TextField fx:id="has_prescription" layoutX="289.0" layoutY="64.0" promptText="Enter 1 for has_prescription or 0 for not" />
+        <TextField fx:id="group" layoutX="289.0" layoutY="187.0" promptText="Enter group id" />
+
+        <Button fx:id="createMedication" layoutX="225.0" layoutY="268.0" mnemonicParsing="false" onAction="#createMedication" text="Create Medication" />
+    </children>
+</AnchorPane>

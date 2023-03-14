@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.InfoDialogController">
+   <children>
+      <Label id="1" depthTest="ENABLE" layoutX="184.0" layoutY="239.0" text="Invalid input" wrapText="true" fx:id="infoLabel">
+         <font>
+            <Font size="28.0" />
+         </font></Label>
+   </children>
+</AnchorPane>

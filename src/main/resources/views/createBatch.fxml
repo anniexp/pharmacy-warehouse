@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.BatchController">
+    <children>
+        <Pane layoutX="62.0" prefHeight="200.0" prefWidth="200.0" />
+        <TextField fx:id="batchId" layoutX="214.0" layoutY="100.0" prefHeight="26.0" prefWidth="238.0" promptText="Enter batch Id" />
+        <TextField fx:id="priceByBatch" layoutX="214.0" layoutY="148.0" prefHeight="26.0" prefWidth="237.0" promptText="Enter price of single product in batch" />
+
+        <Button fx:id="createBatch" layoutX="291.0" layoutY="246.0" mnemonicParsing="false" onAction="#createBatch" text="Create Batch" />
+        <TextField fx:id="shelf_life" layoutX="214.0" layoutY="193.0" prefHeight="26.0" prefWidth="238.0" promptText="Enter shelf life in format dd/MM/yyyy" />
+    </children>
+</AnchorPane>

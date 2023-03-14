@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.MainController">
+   <children>
+      <Button fx:id="getAllRooms" layoutX="26.0" layoutY="65.0" mnemonicParsing="false" onAction="#navigateToGetAllRooms" text="GetAllRooms" />
+      <Button fx:id="addRoom" layoutX="26.0" layoutY="102.0" mnemonicParsing="false" onAction="#navigateToCreateRoom" text="AddRoom" />
+      <Button fx:id="getProductById" layoutX="300.0" layoutY="65.0" mnemonicParsing="false" onAction="#navigateToGetProductById" text="GetProductById" />
+      <Button fx:id="productByOrder" layoutX="117.0" layoutY="220.0" mnemonicParsing="false" onAction="#navigateToGetAllProductsByOrder" text="GetProductInfoForOrder" />
+      <Button fx:id="deleteRoom" layoutX="25.0" layoutY="140.0" mnemonicParsing="false" onAction="#navigateToDeleteRoom" text="Delete Room" />
+      <Button fx:id="GetRoomById" layoutX="23.0" layoutY="182.0" mnemonicParsing="false" onAction="#navigateToGetRoomById" text="GetRoomById" />
+      <Button fx:id="GetOrderById" layoutX="146.0" layoutY="182.0" mnemonicParsing="false" onAction="#navigateToGetOrderById" text="GetOrderById" />
+      <Button fx:id="getAllOrders" layoutX="145.0" layoutY="65.0" mnemonicParsing="false" onAction="#navigateToGetAllOrders" text="Get All Orders" />
+      <Button fx:id="addMedication" layoutX="300.0" layoutY="140.0" mnemonicParsing="false" onAction="#navigateToCreateMedication" text="Create Medication" />
+      <Button fx:id="addSupplement" layoutX="298.0" layoutY="182.0" mnemonicParsing="false" onAction="#navigateToCreateSupplement" text="Create Supplement" />
+      <Button fx:id="addOrderIn" layoutX="141.0" layoutY="102.0" mnemonicParsing="false" onAction="#navigateToCreateOrderIn" text="Create Order In" />
+      <Button fx:id="addOrderOut" layoutX="136.0" layoutY="140.0" mnemonicParsing="false" onAction="#navigateToCreateOrderOut" text="Create Order Out" />
+      <Button fx:id="getAllProducts" layoutX="300.0" layoutY="102.0" mnemonicParsing="false" onAction="#navigateToGetAllProducts" text="Get All Products" />
+      <Button fx:id="getAllPharmacies" layoutX="642.0" layoutY="140.0" mnemonicParsing="false" onAction="#navigateToGetAllPharmacies" text="Get All Pharmacies" />
+      <Button fx:id="getAllDistr" layoutX="466.0" layoutY="102.0" mnemonicParsing="false" onAction="#navigateToGetAllDistributors" text="Get All Distributors" />
+      <Button fx:id="getAllActiveIngr" layoutX="466.0" layoutY="140.0" mnemonicParsing="false" onAction="#navigateToGetAllActiveIngredients" text="Get All Active Ingredients" />
+      <Button fx:id="getAllENums" layoutX="466.0" layoutY="183.0" mnemonicParsing="false" onAction="#navigateToGetAllENums" text="Get All E-Numbers" />
+      <Button fx:id="addPharmacy" layoutX="647.0" layoutY="65.0" mnemonicParsing="false" onAction="#navigateToAddPharmacy" text="Add Pharmacy" />
+      <Button fx:id="deletePharmacy" layoutX="647.0" layoutY="102.0" mnemonicParsing="false" onAction="#navigateToDeletePharmacy" text="Delete Pharmacy" />
+      <Button fx:id="getPharmacy" layoutX="647.0" layoutY="182.0" mnemonicParsing="false" onAction="#navigateToGetPharmacyById" text="Get Pharmacy By Id" />
+      <Button fx:id="allB" layoutX="655.0" layoutY="269.0" mnemonicParsing="false" onAction="#navigateToGetAllBatches" text="All Batches" />
+      <Button fx:id="batchById" layoutX="655.0" layoutY="311.0" mnemonicParsing="false" onAction="#navigateToGetBatchById" text="Get Batch By Id" />
+      <Button fx:id="createB" layoutX="655.0" layoutY="352.0" mnemonicParsing="false" onAction="#navigateToCreateBatch" text="Create Batch" />
+      <Button fx:id="deleteB" layoutX="655.0" layoutY="390.0" mnemonicParsing="false" onAction="#navigateToGetDeleteBatch" text="Delete Batch" />
+      <Button fx:id="ordersIn" layoutX="146.0" layoutY="257.0" mnemonicParsing="false" onAction="#navigateToGetAllOrdersIn" text="Get Orders In" />
+      <Button fx:id="ordersOut" layoutX="163.0" layoutY="299.0" mnemonicParsing="false" onAction="#navigateToGetAllOrdersOut" text="Get Orders Out" />
+   </children>
+</Pane>

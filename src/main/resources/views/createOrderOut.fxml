@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.OrderController">
+    <children>
+        <Pane layoutX="62.0" prefHeight="200.0" prefWidth="200.0" />
+        <TextField fx:id="orderId" layoutX="239.0" layoutY="130.0" promptText="Enter order Id" />
+        <TextField fx:id="pharmacy" layoutX="239.0" layoutY="181.0" promptText="Enter pharmacy Id" />
+        <Button fx:id="createOrderOut" layoutX="226.0" layoutY="225.0" mnemonicParsing="false" onAction="#createOrderOut" text="Create Order from Warehouse" />
+    </children>
+</AnchorPane>
